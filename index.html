@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KICKVERSE: encuentra tus tenis favoritos y personaliza tu propio estilo.">
+    <title>KICKVERSE | Sneakers Store</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: "#07080b",
+                            panel: "#11131d",
+                            green: "#10b981"
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-brand-dark text-white">
+
+    <!-- NAVBAR -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-panel">
+        <nav class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+
+            <a href="#inicio" class="text-2xl font-black tracking-wider">
+                KICK<span class="text-emerald-400">VERSE</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-7 text-sm font-semibold text-gray-300">
+                <a href="#inicio" class="hover:text-emerald-400 transition">Inicio</a>
+                <a href="#catalogo" class="hover:text-emerald-400 transition">Catálogo</a>
+                <a href="#ofertas" class="hover:text-emerald-400 transition">Ofertas</a>
+                <a href="#personaliza" class="hover:text-emerald-400 transition">Personaliza</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="openSearchModal()" aria-label="Buscar" class="hover:text-emerald-400">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+
+                <button onclick="openWishlistModal()" aria-label="Favoritos" class="relative hover:text-pink-400">
+                    <i class="fa-regular fa-heart text-lg"></i>
+                    <span id="wishlistBadge" class="absolute -top-3 -right-3 bg-pink-500 text-white text-xs rounded-full px-1.5">0</span>
+                </button>
+
+                <button onclick="openAccountModal()" aria-label="Mi cuenta" class="hover:text-emerald-400">
+                    <i class="fa-regular fa-user text-lg"></i>
+                </button>
+
+                <button onclick="toggleCartDrawer()" aria-label="Carrito" class="relative hover:text-emerald-400">
+                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                    <span id="cartBadge" class="absolute -top-3 -right-3 bg-emerald-500 text-black text-xs rounded-full px-1.5">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- INICIO -->
+    <main>
+
+        <section id="inicio" class="min-h-screen flex items-center pt-24 px-6">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+                <div>
+                    <span class="text-emerald-400 uppercase tracking-widest font-bold text-sm">
+                        Tu estilo, tus reglas
+                    </span>
+
+                    <h1 class="text-5xl md:text-7xl font-black leading-tight mt-5">
+                        ENCUENTRA TU
+                        <span class="text-emerald-400">ESTILO.</span>
+                    </h1>
+
+                    <p class="text-gray-400 text-lg mt-6 max-w-lg">
+                        Descubre nuestra colección de sneakers. Modelos urbanos,
+                        deportivos y exclusivos para destacar en cada paso.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        <a href="#catalogo"
+                           class="bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-7 py-4 rounded-xl transition">
+                            Explorar catálogo
+                        </a>
+
+                        <a href="#personaliza"
+                           class="border border-gray-600 hover:border-emerald-400 px-7 py-4 rounded-xl font-bold transition">
+                            Personalizar tenis
+                        </a>
+                    </div>
+
+                    <div class="flex gap-10 mt-12">
+                        <div>
+                            <p class="text-3xl font-black text-emerald-400">100%</p>
+                            <p class="text-gray-500 text-xs">Estilo</p>
+                        </div>
+
+                        <div>
+                            <p class="text-3xl font-black text-emerald-400">2026</p>
+                            <p class="text-gray-500 text-xs">Nueva colección</p>
+                        </div>
+
+                        <div>
+                            <p class="text-3xl font-black text-emerald-400">KICK</p>
+                            <p class="text-gray-500 text-xs">Your style</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-0 bg-emerald-500/10 blur-3xl rounded-full"></div>
+
+                    <img
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1000"
+                        alt="Tenis deportivos"
+                        class="relative w-full max-h-[500px] object-contain drop-shadow-2xl">
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CATEGORÍAS -->
+        <section class="py-16 px-6">
+            <div class="max-w-7xl mx-auto">
+
+                <div class="text-center mb-10">
+                    <p class="text-emerald-400 font-bold uppercase text-sm tracking-widest">Encuentra tu estilo</p>
+                    <h2 class="text-3xl md:text-4xl font-black mt-2">NUESTRAS CATEGORÍAS</h2>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-6">
+
+                    <a href="#catalogo" onclick="filterProducts('urban', event)"
+                       class="glass-panel rounded-2xl p-8 text-center hover:border-emerald-400 border border-gray-800 transition">
+                        <i class="fa-solid fa-shoe-prints text-4xl text-emerald-400"></i>
+                        <h3 class="font-bold text-xl mt-4">Urbanos</h3>
+                        <p class="text-gray-400 text-sm mt-2">Diseños para la ciudad.</p>
+                    </a>
+
+                    <a href="#catalogo" onclick="filterProducts('sport', event)"
+                       class="glass-panel rounded-2xl p-8 text-center hover:border-emerald-400 border border-gray-800 transition">
+                        <i class="fa-solid fa-person-running text-4xl text-emerald-400"></i>
+                        <h3 class="font-bold text-xl mt-4">Deportivos</h3>
+                        <p class="text-gray-400 text-sm mt-2">Comodidad y movimiento.</p>
+                    </a>
+
+                    <a href="#catalogo" onclick="filterProducts('limited', event)"
+                       class="glass-panel rounded-2xl p-8 text-center hover:border-emerald-400 border border-gray-800 transition">
+                        <i class="fa-solid fa-gem text-4xl text-emerald-400"></i>
+                        <h3 class="font-bold text-xl mt-4">Edición limitada</h3>
+                        <p class="text-gray-400 text-sm mt-2">Modelos exclusivos.</p>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CATÁLOGO -->
+        <section id="catalogo" class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+
+                <div class="mb-10">
+                    <p class="text-emerald-400 font-bold uppercase text-sm tracking-widest">Nuestra colección</p>
+                    <h2 class="text-4xl font-black mt-2">CATÁLOGO DE TENIS</h2>
+                    <p class="text-gray-400 mt-3">Encuentra el modelo perfecto para ti.</p>
+                </div>
+
+                <div class="flex flex-wrap gap-3 mb-10">
+                    <button onclick="filterProducts('all', event)"
+                        class="filter-tab active-tab bg-emerald-500 text-black px-5 py-2.5 rounded-xl text-sm font-bold">
+                        Todos
+                    </button>
+
+                    <button onclick="filterProducts('urban', event)"
+                        class="filter-tab glass-panel text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold">
+                        Urbanos
+                    </button>
+
+                    <button onclick="filterProducts('sport', event)"
+                        class="filter-tab glass-panel text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold">
+                        Deportivos
+                    </button>
+
+                    <button onclick="filterProducts('limited', event)"
+                        class="filter-tab glass-panel text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold">
+                        Limitados
+                    </button>
+                </div>
+
+                <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                    <!-- Los productos se agregan desde products.js y app.js -->
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- OFERTAS -->
+        <section id="ofertas" class="py-20 px-6 bg-gray-900/30">
+            <div class="max-w-7xl mx-auto">
+
+                <div class="flex flex-wrap justify-between items-center gap-5 mb-10">
+                    <div>
+                        <p class="text-pink-400 font-bold uppercase text-sm tracking-widest">Precios especiales</p>
+                        <h2 class="text-4xl font-black mt-2">OFERTAS EXCLUSIVAS</h2>
+                        <p class="text-gray-400 mt-3">Aprovecha nuestros modelos seleccionados.</p>
+                    </div>
+
+                    <button onclick="openSpinWheelModal()"
+                        class="bg-pink-500 hover:bg-pink-400 text-white font-bold px-6 py-3 rounded-xl transition">
+                        <i class="fa-solid fa-gift mr-2"></i>
+                        Girar ruleta
+                    </button>
+                </div>
+
+                <div id="offersGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                    <!-- Las ofertas se agregan desde app.js -->
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- PERSONALIZADOR -->
+        <section id="personaliza" class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+
+                <div class="text-center mb-12">
+                    <p class="text-emerald-400 font-bold uppercase text-sm tracking-widest">Diseña algo único</p>
+                    <h2 class="text-4xl font-black mt-2">PERSONALIZA TUS TENIS</h2>
+                    <p class="text-gray-400 mt-3">Elige tu modelo y combina tus colores favoritos.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-10 items-start">
+
+                    <!-- VISTA DEL TENIS -->
+                    <div class="glass-panel rounded-3xl p-8 text-center">
+                        <h3 id="customModelName" class="text-2xl font-bold mb-6">Urban X Custom</h3>
+
+                        <svg id="customSneakerSvg" viewBox="0 0 440 280"
+                             class="w-full max-w-xl mx-auto" xmlns="http://www.w3.org/2000/svg">
+
+                            <path id="svgBody"
+                                d="M55 166 Q90 140 135 145 L185 95 Q205 78 224 105 L260 145 Q290 155 330 163 L375 178 Q400 186 394 207 Q389 226 360 228 L75 228 Q38 227 42 195 Q44 178 55 166Z"
+                                fill="#10b981" stroke="#ffffff" stroke-width="5"/>
+
+                            <path id="svgAccent"
+                                d="M185 145 L220 110 L252 151 L230 165 L207 139 L190 164Z"
+                                fill="#06d6a0"/>
+
+                            <path d="M52 202 Q175 215 395 200 L390 222 Q380 235 350 235 L75 235 Q40 233 42 210Z"
+                                fill="#f3f4f6" stroke="#ffffff" stroke-width="3"/>
+
+                            <path d="M178 118 L235 169 M165 131 L220 182 M195 108 L250 160"
+                                stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+
+                            <text id="svgCustomText" x="220" y="190"
+                                fill="#ffffff" font-size="14" font-weight="bold"
+                                text-anchor="middle"></text>
+                        </svg>
+
+                        <p class="text-gray-400 text-sm mt-4">Vista previa de tu diseño.</p>
+                    </div>
+
+
+                    <!-- OPCIONES -->
+                    <div class="space-y-7">
+
+                        <div class="glass-panel rounded-2xl p-6">
+                            <h3 class="font-bold text-lg mb-4">1. Elige tu modelo</h3>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <button class="model-btn active-model bg-emerald-500 text-black py-3 px-3 rounded-xl text-sm font-bold"
+                                    onclick="setCustomModel('Urban X',1599,this)">
+                                    Urban X
+                                </button>
+
+                                <button class="model-btn glass-panel text-gray-300 py-3 px-3 rounded-xl text-sm font-bold"
+                                    onclick="setCustomModel('Sport Pro',1799,this)">
+                                    Sport Pro
+                                </button>
+
+                                <button class="model-btn glass-panel text-gray-300 py-3 px-3 rounded-xl text-sm font-bold"
+                                    onclick="setCustomModel('Street V2',1899,this)">
+                                    Street V2
+                                </button>
+
+                                <button class="model-btn glass-panel text-gray-300 py-3 px-3 rounded-xl text-sm font-bold"
+                                    onclick="setCustomModel('Limited X',2199,this)">
+                                    Limited X
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div class="glass-panel rounded-2xl p-6">
+                            <h3 class="font-bold text-lg mb-4">2. Selecciona los colores</h3>
+
+                            <div class="space-y-5">
+
+                                <div>
+                                    <label class="block text-sm text-gray-300 mb-2">Color principal</label>
+                                    <div class="flex flex-wrap gap-3">
+                                        <button onclick="updateCustomColor('body','#10b981')" class="w-9 h-9 rounded-full bg-emerald-500 border-2 border-white" aria-label="Verde"></button>
+                                        <button onclick="updateCustomColor('body','#ef4444')" class="w-9 h-9 rounded-full bg-red-500" aria-label="Rojo"></button>
+                                        <button onclick="updateCustomColor('body','#3b82f6')" class="w-9 h-9 rounded-full bg-blue-500" aria-label="Azul"></button>
+                                        <button onclick="updateCustomColor('body','#f3f4f6')" class="w-9 h-9 rounded-full bg-white" aria-label="Blanco"></button>
+                                        <button onclick="updateCustomColor('body','#111827')" class="w-9 h-9 rounded-full bg-gray-900 border border-gray-500" aria-label="Negro"></button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-gray-300 mb-2">Color secundario</label>
+                                    <div class="flex flex-wrap gap-3">
+                                        <button onclick="updateCustomColor('accent','#06d6a0')" class="w-9 h-9 rounded-full bg-teal-400"></button>
+                                        <button onclick="updateCustomColor('accent','#f59e0b')" class="w-9 h-9 rounded-full bg-amber-500"></button>
+                                        <button onclick="updateCustomColor('accent','#ec4899')" class="w-9 h-9 rounded-full bg-pink-500"></button>
+                                        <button onclick="updateCustomColor('accent','#8b5cf6')" class="w-9 h-9 rounded-full bg-violet-500"></button>
+                                        <button onclick="updateCustomColor('accent','#ffffff')" class="w-9 h-9 rounded-full bg-white"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="glass-panel rounded-2xl p-6">
+                            <h3 class="font-bold text-lg mb-4">3. Agrega tu nombre o texto</h3>
+
+                            <input type="text" maxlength="8"
+                                oninput="updateCustomText(this.value)"
+                                placeholder="Ejemplo: KICK"
+                                class="w-full bg-brand-dark border border-gray-700 rounded-xl p-3 text-white text-sm">
+
+                            <label class="flex items-center gap-3 mt-5 text-sm text-gray-300">
+                                <input type="checkbox" onchange="toggleNeonGlow()" class="accent-emerald-500 w-4 h-4">
+                                Activar efecto neón
+                            </label>
+                        </div>
+
+
+                        <button onclick="addCustomToCart()"
+                            class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-black py-4 rounded-xl transition">
+                            <i class="fa-solid fa-cart-plus mr-2"></i>
+                            AGREGAR DISEÑO AL CARRITO
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- BENEFICIOS -->
+        <section class="py-16 px-6 bg-gray-900/30">
+            <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+
+                <div>
+                    <i class="fa-solid fa-truck-fast text-3xl text-emerald-400"></i>
+                    <h3 class="font-bold mt-4">Envíos</h3>
+                    <p class="text-gray-400 text-sm mt-2">Consulta las opciones de entrega.</p>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-shield-halved text-3xl text-emerald-400"></i>
+                    <h3 class="font-bold mt-4">Compra segura</h3>
+                    <p class="text-gray-400 text-sm mt-2">Atención y confianza.</p>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-headset text-3xl text-emerald-400"></i>
+                    <h3 class="font-bold mt-4">Atención</h3>
+                    <p class="text-gray-400 text-sm mt-2">Estamos para ayudarte.</p>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-star text-3xl text-emerald-400"></i>
+                    <h3 class="font-bold mt-4">Estilo único</h3>
+                    <p class="text-gray-400 text-sm mt-2">Encuentra tu próximo favorito.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 py-10 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
+
+            <div>
+                <a href="#inicio" class="text-2xl font-black">
+                    KICK<span class="text-emerald-400">VERSE</span>
+                </a>
+                <p class="text-gray-500 text-xs mt-2">Tu estilo, tus reglas.</p>
+            </div>
+
+            <p class="text-gray-500 text-sm text-center">
+                © 2026 KICKVERSE. Proyecto escolar.
+            </p>
+
+            <a href="#inicio" class="text-emerald-400 text-sm hover:text-emerald-300">
+                Volver arriba ↑
+            </a>
+
+        </div>
+    </footer>
+
+
+    <!-- CARRITO -->
+    <div id="cartOverlay"
+        class="hidden opacity-0 fixed inset-0 bg-black/70 z-[60] transition-opacity"
+        onclick="closeCartDrawer()"></div>
+
+    <aside id="cartDrawer"
+        class="fixed top-0 right-0 z-[70] h-full w-full max-w-md bg-gray-950 border-l border-gray-800 p-6 translate-x-full transition-transform duration-300 overflow-y-auto">
+
+        <div class="flex justify-between items-center border-b border-gray-800 pb-5">
+            <h2 class="text-2xl font-black">MI CARRITO</h2>
+
+            <button onclick="closeCartDrawer()" aria-label="Cerrar carrito"
+                class="text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div id="cartItemsContainer" class="py-5 divide-y divide-gray-800">
+            <p class="text-gray-400 text-sm text-center py-8">Tu carrito está vacío.</p>
+        </div>
+
+        <div class="border-t border-gray-800 pt-5 mt-4">
+            <div class="flex justify-between items-center mb-5">
+                <span class="font-bold">Total:</span>
+                <span id="cartTotal" class="text-xl font-black text-emerald-400">$0 MXN</span>
+            </div>
+
+            <button onclick="openCheckoutModal()"
+                class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-black py-4 rounded-xl transition">
+                CONTINUAR COMPRA
+            </button>
+
+            <p class="text-gray-500 text-xs text-center mt-4">
+                Compra de demostración. No se realizan cobros reales.
+            </p>
+        </div>
+    </aside>
+
+
+    <!-- MODAL GENERAL -->
+    <div id="modalOverlay"
+        class="hidden opacity-0 fixed inset-0 z-[90] bg-black/80 flex items-center justify-center p-4 transition-opacity">
+
+        <div class="relative glass-panel bg-gray-950 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl p-7 border border-gray-700">
+
+            <button onclick="closeModal()" aria-label="Cerrar ventana"
+                class="absolute top-5 right-5 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modalBody" class="pt-4">
+                <!-- El contenido se agrega desde app.js -->
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- RULETA DE DESCUENTOS -->
+    <div id="wheelModalOverlay"
+        class="hidden opacity-0 fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 transition-opacity">
+
+        <div class="relative glass-panel bg-gray-950 rounded-3xl border border-gray-700 p-7 w-full max-w-lg text-center max-h-[95vh] overflow-y-auto">
+
+            <button onclick="closeWheelModal()" aria-label="Cerrar ruleta"
+                class="absolute top-5 right-5 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="wheelSetupSection" class="pt-5">
+                <i class="fa-solid fa-gift text-4xl text-pink-400"></i>
+
+                <h2 class="text-2xl font-black mt-4">RULETA KICKVERSE</h2>
+                <p class="text-gray-400 text-sm mt-2">Participa para obtener un premio de demostración.</p>
+
+                <input id="spinUserEmail" type="email" required
+                    placeholder="Escribe tu correo electrónico"
+                    class="w-full mt-6 bg-brand-dark border border-gray-700 rounded-xl p-3 text-white text-sm">
+
+                <button onclick="startSpinWheel()"
+                    class="w-full mt-4 bg-pink-500 hover:bg-pink-400 text-white font-black py-3 rounded-xl transition">
+                    GIRAR RULETA
+                </button>
+            </div>
+
+
+            <div id="wheelContainer" class="hidden pt-6">
+                <div class="relative mx-auto w-full max-w-[360px]">
+
+                    <div class="absolute z-10 left-1/2 -translate-x-1/2 -top-3 text-white text-3xl">
+                        <i class="fa-solid fa-caret-down"></i>
+                    </div>
+
+                    <canvas id="wheelCanvas" width="360" height="360"
+                        class="w-full h-auto rounded-full border-4 border-white">
+                    </canvas>
+
+                </div>
+            </div>
+
+
+            <div id="wheelResult" class="hidden pt-6">
+                <i class="fa-solid fa-trophy text-4xl text-amber-400"></i>
+
+                <h3 class="text-2xl font-black mt-3">¡FELICIDADES!</h3>
+
+                <p id="wonPrizeText" class="text-emerald-400 text-xl font-bold mt-3"></p>
+
+                <p class="text-gray-400 text-sm mt-2">Tu código de premio es:</p>
+
+                <p id="promoCodeText" class="text-white font-black text-2xl mt-2 tracking-widest"></p>
+
+                <button onclick="applyWheelDiscount()"
+                    class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-3 rounded-xl mt-6">
+                    APLICAR PREMIO
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT: RESPETAR ESTE ORDEN -->
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
